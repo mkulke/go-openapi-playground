@@ -1,0 +1,51 @@
+openapi: 3.0.0
+info:
+  title: Go and OpenAPI Are Friends Forever
+  description: Let's do it
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/
+paths:
+  /users/{id}:
+    get:
+      summary: Returns a user by id
+      operationId: findUserById
+      parameters:
+      - name: id
+        in: path
+        description: The id of a user
+        required: true
+        schema:
+          $ref: '#/components/schemas/UserId'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: The specified user ID is invalid (not a number).
+        '404':
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
+
+components:
+  schemas:
+    UserId:
+      type: integer
+      format: int64
+      minimum: 1
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        surname:
+          type: string
+        firstname:
+          type: string
+      required:
+      - id
+      - surname
