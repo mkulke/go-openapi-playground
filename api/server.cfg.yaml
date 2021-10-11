@@ -1,6 +1,6 @@
 output:
   server.gen.go
 generate:
-  - server
+  - chi-server
   - spec
 package: api

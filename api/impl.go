@@ -4,14 +4,20 @@
 package api
 
 import (
+  "encoding/json"
 	"net/http"
-
-	"github.com/labstack/echo/v4"
 )
 
-type Api struct{}
 
-func (a *Api) FindUserById(ctx echo.Context, userId UserId) error {
+type ApiImpl struct{}
+
+func (a *ApiImpl) FindUserById(w http.ResponseWriter, r *http.Request, userId UserId) {
 	user := User{Id: int(userId), Firstname: nil, Surname: "Doe"}
-	return ctx.JSON(http.StatusOK, user)
+  w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(user)
+}
+
+func SetupHandler() {
+    api := ApiImpl{}
+    http.Handle("/", Handler(&api))
 }
