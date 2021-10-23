@@ -11,7 +11,7 @@ go mod tidy
 ## Build
 
 ```bash
-go generate api/impl.go
+go generate ./...
 # generates *.gen.go files in ./api
 go build
 ```
